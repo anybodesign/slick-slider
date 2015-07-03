@@ -1,0 +1,223 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Slick Slider\n"
+"POT-Creation-Date: 2014-12-02 18:44+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Thomas Villain <atelier@anybodesign.com>\n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../admin/settings.php:4
+msgid "Slick Slider Settings"
+msgstr "Réglages Slick Slider"
+
+#: ../admin/settings.php:6
+msgid "How-to"
+msgstr "Notice"
+
+#: ../admin/settings.php:7
+msgid ""
+"First, create your slides in \"Slick Images\". Add Title, content and a "
+"featured image."
+msgstr ""
+"Tout d'abord, créez vos slides dans  \"Images Slick\". Saisissez un titre, "
+"du contenu texte (facultatif) et une image à la une."
+
+#: ../admin/settings.php:8
+msgid ""
+"Then add the slider shortcode <code>[slick_slider]</code> on a page or a "
+"post."
+msgstr ""
+"Puis ajoutez le shortcode du slider <code>[slick_slider]</code> sur une page "
+"ou sur un post."
+
+#: ../admin/settings.php:9
+msgid ""
+"You can also call the function <code>&lt;?php slick_slider(); ?&gt;</code> "
+"in your theme templates."
+msgstr ""
+"Vous pouvez également appeler la fonction <code>&lt;?php slick_slider(); ?"
+"&gt;</code> dans les templates de vos thèmes."
+
+#: ../admin/settings.php:12
+msgid "Slick options"
+msgstr "Options Slick"
+
+#: ../admin/settings.php:20
+msgid "Slide or Fade ?"
+msgstr "Slide ou Fade ?"
+
+#: ../admin/settings.php:22
+msgid "Slider Effect"
+msgstr "Effet du slider"
+
+#: ../admin/settings.php:24
+msgid "Slide"
+msgstr "Slide"
+
+#: ../admin/settings.php:25
+msgid "Fade"
+msgstr "Fade"
+
+#: ../admin/settings.php:31
+msgid "Auto Play and Adaptive Height"
+msgstr "Lecture auto et hauteur des slides"
+
+#: ../admin/settings.php:33
+msgid "Enable Auto Play"
+msgstr "Activer la lecture automatique"
+
+#: ../admin/settings.php:35
+msgid "Enable Adaptive Height"
+msgstr "Activer la hauteur adaptative"
+
+#: ../admin/settings.php:41
+msgid "Speed"
+msgstr "Vitesse"
+
+#: ../admin/settings.php:43
+msgid "Transition Speed: "
+msgstr "Vitesse des transitions :"
+
+#: ../admin/settings.php:48
+msgid "Navigation"
+msgstr "Navigation"
+
+#: ../admin/settings.php:50
+msgid "Display Direction Arrows"
+msgstr "Afficher les flèches de navigation"
+
+#: ../admin/settings.php:52
+msgid "Display Pagination Dots"
+msgstr "Afficher les points de pagination"
+
+#: ../admin/settings.php:59
+msgid "Colors"
+msgstr "Couleurs"
+
+#: ../admin/settings.php:61
+msgid "Arrows color: "
+msgstr "Couleur des flèches : "
+
+#: ../admin/settings.php:62
+msgid "Dots color: "
+msgstr "Couleur des points : "
+
+#: ../admin/settings.php:75
+msgid "CSS customization"
+msgstr "Personnalisation CSS"
+
+#: ../admin/settings.php:76
+msgid ""
+"If you want to customize the output of the slider, here is the generated "
+"code:"
+msgstr ""
+"Si vous voulez personnaliser le rendu du slider, voici le code généré : "
+
+#: ../admin/settings.php:95
+msgid "Your can override the class you need in your own stylesheet:"
+msgstr ""
+"Vous pouvez écraser les règles CSS que voulez dans votre propre feuille de "
+"styles : "
+
+#: ../admin/settings.php:97
+msgid "The slider container"
+msgstr "Le conteneur du slider"
+
+#: ../admin/settings.php:98
+msgid "The slider slides"
+msgstr "Le slides du slider"
+
+#: ../admin/settings.php:99
+msgid "The image container"
+msgstr "Le conteneur de l'image"
+
+#: ../admin/settings.php:100
+msgid "The content container"
+msgstr "Le conteneur du contenu"
+
+#: ../admin/settings.php:104
+msgid "Credits"
+msgstr "Crédits"
+
+#: ../admin/settings.php:105
+msgid ""
+"This plugin is based on Slick, a jQuery plugin by Ken Wheeler. You can visit "
+"the official website here: <a href=\"https://kenwheeler.github.io/slick/\" "
+"title=\"Slick official site\">https://kenwheeler.github.io/slick/"
+msgstr ""
+"Ce plugin est basé sur Slick, un plugin jQuery développé par Ken Wheeler. "
+"Vous pouvez visiter le site officiel ici : <a href=\"https://kenwheeler."
+"github.io/slick/\" title=\"Slick official site\">https://kenwheeler.github."
+"io/slick/"
+
+#: ../admin/settings.php:108
+msgid ""
+"Made by <a href=\"http://anybodesign.com\" title=\"graphic and web design"
+"\">anybodesign.com</a> :)"
+msgstr ""
+"Made by <a href=\"http://anybodesign.com\" title=\"graphic and web design"
+"\">anybodesign.com</a> :)"
+
+#: ../any-slick-slider.php:129
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Vous n'avez pas les droits suffisants pour accéder à cette page."
+
+#: ../slick-slider-cpt.php:13
+msgid "Slick Images"
+msgstr "Images Slick"
+
+#: ../slick-slider-cpt.php:14
+msgid "Parent Slide:"
+msgstr "Slide parente : "
+
+#: ../slick-slider-cpt.php:15
+msgid "All Slides"
+msgstr "Toutes les slides"
+
+#: ../slick-slider-cpt.php:16
+msgid "View Slide"
+msgstr "Voir la slide"
+
+#: ../slick-slider-cpt.php:17
+msgid "Add New Slide"
+msgstr "Ajouter une slide"
+
+#: ../slick-slider-cpt.php:18
+msgid "Add New"
+msgstr "Ajouter"
+
+#: ../slick-slider-cpt.php:19
+msgid "Edit Slide"
+msgstr "Modifier la slide"
+
+#: ../slick-slider-cpt.php:20
+msgid "Update Slide"
+msgstr "Mettre à jour"
+
+#: ../slick-slider-cpt.php:21
+msgid "Search Slide"
+msgstr "Chercher une slide"
+
+#: ../slick-slider-cpt.php:22
+msgid "Not found"
+msgstr "Introuvable"
+
+#: ../slick-slider-cpt.php:23
+msgid "Not found in Trash"
+msgstr "Introuvable dans la corbeille"
+
+#: ../slick-slider-cpt.php:26
+msgid "slick-image"
+msgstr "slick-image"
+
+#: ../slick-slider-cpt.php:27
+msgid "Here are the Slicky Slides"
+msgstr "Et voici les Slicky Slides :)"
