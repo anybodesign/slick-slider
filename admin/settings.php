@@ -1,79 +1,243 @@
-<?php defined('ABSPATH') or die(); ?>	
+<?php defined('ABSPATH') or die(); 
+
+
+add_action( 'admin_menu', 'any_slks_add_admin_menu' );
+add_action( 'admin_init', 'any_slks_settings_init' );
+
+
+function any_slks_add_admin_menu(  ) { 
+
+	add_options_page( 
+		'Slick Slider', 
+		'Slick Slider', 
+		'manage_options', 
+		'slick_slider', 
+		'any_slks_options_page'
+	);
+
+}
+
+
+function any_slks_settings_init(  ) { 
+
+	add_settings_section(
+		'any_slks_plugin_page_section', 
+		__( 'Slider Settings', 'slick-slider' ), 
+		'any_slks_settings_section_callback', 
+		'any_slks_plugin_page'
+	);
 	
-	<div class="wrap">
-		<h2><?php _e('Slick Slider Settings','slick-slider'); ?></h2>			
-			
-			<h3><?php _e('How-to','slick-slider'); ?></h3>
-			<p><?php _e('First, create your slides in "Slick Images". Add Title, content and a featured image.','slick-slider'); ?><br>
-			<?php _e('Then add the slider shortcode <code>[slick_slider]</code> on a page or a post.','slick-slider'); ?></p>
-			<p><?php _e('You can also call the function <code>&lt;?php slick_slider(); ?&gt;</code> in your theme templates.','slick-slider'); ?></p>
-			
-			
-			<h3><?php _e('Slick options','slick-slider'); ?></h3>			
- 
-			<form action="options.php" method="post" name="options">
-			<?php wp_nonce_field('update-options'); ?>
-			
-				<table class="form-table">
-					<tbody>
-						<tr>
-							<th><?php _e('Slide or Fade ?','slick-slider'); ?></th>
-							<td scope="row">
-								<label><?php _e('Slider Effect','slick-slider'); ?></label> 
-								<select name="slick_effect">
-									<option value="false" <?php echo $slk_slide; ?>><?php _e('Slide','slick-slider'); ?></option>
-									<option value="true" <?php echo $slk_fade; ?>><?php _e('Fade','slick-slider'); ?></option>
-								</select>
-							</td>
-						</tr>
-						
-						<tr>
-							<th><?php _e('Auto Play and Adaptive Height','slick-slider'); ?></th>
-							<td scope="row">
-								<input type="checkbox" <?php echo $slk_autoplay; ?>  id="slick_autoplay" name="slick_autoplay" value="true" /> <label for="slick_autoplay"><?php _e('Enable Auto Play','slick-slider'); ?></label>
-								<br>
-								<input type="checkbox" <?php echo $slk_height; ?>  id="slick_height" name="slick_height" value="false" /> <label for="slick_height"><?php _e('Enable Adaptive Height','slick-slider'); ?></label>
-								
-							</td>
-						</tr>
+	
+		// Style and Autoplay
+		
+		add_settings_field( 
+			'any_slks_style', 
+			__( 'Slide or Fade ?', 'slick-slider' ), 
+			'any_slks_style_render', 
+			'any_slks_plugin_page', 
+			'any_slks_plugin_page_section' 
+		);
+		register_setting( 'any_slks_plugin_page', 'any_slks_style' );
+		
+		add_settings_field( 
+			'any_slks_auto', 
+			__( 'Autoplay', 'slick-slider' ), 
+			'any_slks_auto_render', 
+			'any_slks_plugin_page', 
+			'any_slks_plugin_page_section' 
+		);
+		register_setting( 'any_slks_plugin_page', 'any_slks_auto' );
+		
+		add_settings_field( 
+			'any_slks_speed', 
+			__( 'Transition speed', 'slick-slider' ), 
+			'any_slks_speed_render', 
+			'any_slks_plugin_page', 
+			'any_slks_plugin_page_section' 
+		);
+		register_setting( 'any_slks_plugin_page', 'any_slks_speed' );
+		
 
-						<tr>
-							<th><?php _e('Speed','slick-slider'); ?></th>
-							<td scope="row">
-							<label for="slick_speed"><?php _e('Transition Speed: ','slick-slider'); ?></label> <input type="text" id="slick_speed" name="slick_speed" value="<?php echo $slk_speed; ?>" placeholder="4000" />
-							</td>
-						</tr>
-						
-						<tr>
-							<th><?php _e('Navigation','slick-slider'); ?></th>
-							<td scope="row">
-								<input type="checkbox" <?php echo $slk_showarr; ?>  id="slick_showarr" name="slick_showarr" value="true" /> <label for="slick_showarr"><?php _e('Display Direction Arrows','slick-slider'); ?></label>
-								<br>
-								<input type="checkbox" <?php echo $slk_showdot; ?>  id="slick_showdot" name="slick_showdot" value="true" /> <label for="slick_showdot"><?php _e('Display Pagination Dots','slick-slider'); ?></label>
-								
-							</td>
-						</tr>
+		// Arrows and Dots
+		
+		add_settings_field( 
+			'any_slks_arrows', 
+			__( 'Navigation arrows', 'slick-slider' ), 
+			'any_slks_arrows_render', 
+			'any_slks_plugin_page', 
+			'any_slks_plugin_page_section' 
+		);
+		register_setting( 'any_slks_plugin_page', 'any_slks_arrows' );
+	
+	
+		add_settings_field( 
+			'any_slks_arrowscolor', 
+			__( 'Arrows color', 'slick-slider' ), 
+			'any_slks_arrowscolor_render', 
+			'any_slks_plugin_page', 
+			'any_slks_plugin_page_section' 
+		);
+		register_setting( 'any_slks_plugin_page', 'any_slks_arrowscolor' );
+		
+		add_settings_field( 
+			'any_slks_dots', 
+			__( 'Pagination dots', 'slick-slider' ), 
+			'any_slks_dots_render', 
+			'any_slks_plugin_page', 
+			'any_slks_plugin_page_section' 
+		);
+		register_setting( 'any_slks_plugin_page', 'any_slks_dots' );
+	
+	
+		add_settings_field( 
+			'any_slks_dotscolor', 
+			__( 'Dots color', 'slick-slider' ), 
+			'any_slks_dotscolor_render', 
+			'any_slks_plugin_page', 
+			'any_slks_plugin_page_section' 
+		);
+		register_setting( 'any_slks_plugin_page', 'any_slks_dotscolor' );
+		
+		// Height
+		
+		add_settings_field( 
+			'any_slks_height', 
+			__( 'Adaptive height', 'slick-slider' ), 
+			'any_slks_height_render', 
+			'any_slks_plugin_page', 
+			'any_slks_plugin_page_section' 
+		);
+		register_setting( 'any_slks_plugin_page', 'any_slks_height' );
+		
 
-						
-						<tr>
-							<th><?php _e('Colors','slick-slider'); ?></th>
-							<td scope="row">
-							<label><?php _e('Arrows color: ','slick-slider'); ?></label> <input type="text" name="slick_dircolor" value="<?php echo $slk_dircolor; ?>" placeholder="#666666" /><br>
-							<label><?php _e('Dots color: ','slick-slider'); ?></label> <input type="text" name="slick_dotcolor" value="<?php echo $slk_dotcolor; ?>" placeholder="#666666" />
-							</td>
-						</tr>
-						
-					</tbody>
-				</table>
-				<input type="hidden" name="action" value="update" />
-				<input type="hidden" name="page_options" value="slick_effect,slick_autoplay,slick_height,slick_showarr,slick_showdot,slick_speed,slick_showarr,slick_showdot,slick_dircolor,slick_dotcolor" />
-			 
-				<?php submit_button(); ?>
-			</form>
-			
-			
-			<h3><?php _e('CSS customization','slick-slider'); ?></h3>			
-			<p><?php _e('If you want to customize the output of the slider, here is the generated code:','slick-slider'); ?></p>
+}
+
+
+// Style and Autoplay
+
+function any_slks_style_render(  ) { 
+
+	$options = get_option( 'any_slks_style', 'false' );
+	?>
+	<select name='any_slks_style'>
+		<option value='false' <?php selected( $options, 'false' ); ?>>Slide</option>
+		<option value='true' <?php selected( $options, 'true' ); ?>>Fade</option>
+	</select>
+
+<?php
+
+}
+
+
+function any_slks_auto_render(  ) { 
+
+	$options = get_option( 'any_slks_auto', 1 );
+	?>
+	<input type='checkbox' name='any_slks_auto' <?php checked( 1, $options, true ); ?> value='1'> <?php _e('Enable','slick-slider'); ?>
+	<?php
+}
+
+function any_slks_speed_render(  ) { 
+
+	$options = get_option( 'any_slks_speed', 4000 );
+	?>
+	<input type='text' name='any_slks_speed' value='<?php echo $options; ?>' placeholder='4000'>
+	<?php
+}
+
+
+// Arrows and Dots 
+
+function any_slks_arrows_render(  ) { 
+
+	$options = get_option( 'any_slks_arrows', 1 );
+	?>
+	<input type='checkbox' name='any_slks_arrows' <?php checked( 1, $options, true ); ?> value='1'> <?php _e('Enable','slick-slider'); ?>
+	<?php
+}
+
+function any_slks_arrowscolor_render(  ) { 
+
+	$options = get_option( 'any_slks_arrowscolor', '#000000' );
+	?>
+	<input type='text' name='any_slks_arrowscolor' value='<?php echo $options; ?>' placeholder='#CCCCCC'>
+	<?php
+}
+
+function any_slks_dots_render(  ) { 
+
+	$options = get_option( 'any_slks_dots', 1 );
+	?>
+	<input type='checkbox' name='any_slks_dots' <?php checked( 1, $options, true ); ?> value='1'> <?php _e('Enable','slick-slider'); ?>
+	<?php
+}
+
+function any_slks_dotscolor_render(  ) { 
+
+	$options = get_option( 'any_slks_dotscolor', '#000000' );
+	?>
+	<input type='text' name='any_slks_dotscolor' value='<?php echo $options; ?>' placeholder='#CCCCCC'>
+	<?php
+}
+
+
+// Height
+
+function any_slks_height_render(  ) { 
+
+	$options = get_option( 'any_slks_height', 1 );
+	?>
+	<input type='checkbox' name='any_slks_height' <?php checked( 1, $options, true ); ?> value='1'> <?php _e('Enable','slick-slider'); ?>
+	<?php
+}
+
+
+
+
+function any_slks_settings_section_callback(  ) { 
+
+	echo __( 'Choose options to customize your slider.', 'slick-slider' );
+
+}
+
+
+
+// The Admin page
+
+
+function any_slks_options_page() { 
+
+	if ( !current_user_can( 'manage_options' ) )  {
+		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+	}
+	
+	
+	?>
+
+<div class="wrap">
+		
+	<h2><?php echo SLKS_NAME; ?></h2>
+	
+	
+	<h3><?php _e('Usage','slick-slider'); ?></h3>
+		<p><?php _e('First, create your slides in "Slick Images". Enter the title and the featured image, the content will be used for the image caption.','slick-slider'); ?></p>
+		<p><?php _e('Then, to output the slider, just add the shortcode <code>[slick_slider]</code> in a post or page, or use the function <code>&lt;?php any_slks_slider(); ?&gt;</code> in your theme templates.','slick-slider'); ?></p>
+	
+	
+	
+	<form action='options.php' method='post'>
+
+		<?php
+		settings_fields( 'any_slks_plugin_page' );
+		do_settings_sections( 'any_slks_plugin_page' );
+		submit_button();
+		?>
+		
+	</form>
+
+
+	<h3><?php _e('CSS customization','slick-slider'); ?></h3>			
+	<p><?php _e('If you want to customize the output of the slider, here is the generated code:','slick-slider'); ?></p>
 			
 <pre>
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -92,20 +256,25 @@
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 </pre>
 
-			<p><?php _e('Your can override the class you need in your own stylesheet:','slick-slider'); ?></p>
-			<ul>
-				<li><code>.slicky-slides</code> : <?php _e('The slider container','slick-slider'); ?></li>
-				<li><code>.slicky-item</code> : <?php _e('The slider slides','slick-slider'); ?></li>
-				<li><code>.slicky-figure</code> : <?php _e('The image container','slick-slider'); ?></li>
-				<li><code>.slicky-caption</code> : <?php _e('The content container','slick-slider'); ?></li>
-			</ul>
-			
-			
-			<h3><?php _e('Credits','slick-slider'); ?></h3>
-			<p><?php _e('This plugin is based on Slick, a jQuery plugin by Ken Wheeler. You can visit the official website here: <a href="https://kenwheeler.github.io/slick/" title="Slick official site">https://kenwheeler.github.io/slick/','slick-slider'); ?></a></p>
+	<p><?php _e('Your can override the class you need in your own stylesheet:','slick-slider'); ?></p>
+	<ul>
+		<li><code>.slicky-slides</code> : <?php _e('The slider container','slick-slider'); ?></li>
+		<li><code>.slicky-item</code> : <?php _e('The slide','slick-slider'); ?></li>
+		<li><code>.slicky-figure</code> : <?php _e('The image container','slick-slider'); ?></li>
+		<li><code>.slicky-caption</code> : <?php _e('The caption container','slick-slider'); ?></li>
+	</ul>
 
-			<p><?php echo '<img src="' . SLKS_PATH .'/img/anybodesign-logo.svg" width="70" alt="logo anybodesign" style="vertical-align:middle" /> '; ?> 
-			<?php _e('Made by <a href="http://anybodesign.com" title="graphic and web design">anybodesign.com</a> :)','slick-gallery'); ?></p>
-		
-			
-	</div>
+
+
+	<h3><?php _e('Credits','slick-slider'); ?></h3>
+	
+		<p><?php _e('This plugin is based on Slick, a jQuery plugin by Ken Wheeler. You can visit the official website here: <a href="https://kenwheeler.github.io/slick/" title="Slick official site">https://kenwheeler.github.io/slick/','slick-slider'); ?></a></p>
+
+		<p><?php echo '<img src="' . SLKS_PATH .'/img/anybodesign-logo.svg" width="70" alt="logo anybodesign" style="vertical-align:middle" /> '; ?> 
+		<?php _e('Made by <a href="http://anybodesign.com" title="graphic and web design">anybodesign.com</a> :)','slick-slider'); ?></p>
+
+</div>
+	
+	<?php
+
+}

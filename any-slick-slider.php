@@ -1,11 +1,28 @@
 <?php
-/**
- * Plugin Name: Slick Slider
- * Description: Create a nice slider using Slick by Ken Wheeler. 
- * Version: 1.1
- * Author: Thomas Villain - Anybodesign
- * Author URI: http://anybodesign.com/
- */
+/*
+Plugin Name: Slick Slider
+Description: Create a nice responsive slider using Slick by Ken Wheeler. 
+Plugin URI: https://github.com/anybodesign/slick-slider/
+Version: 1.1
+Author: Thomas Villain - Anybodesign
+Author URI: http://anybodesign.com/
+License: GPL2
+*/
+
+/*
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License, version 2, as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 
 defined('ABSPATH') or die('°_°’'); 
 
@@ -28,9 +45,9 @@ require_once('any-slick-slider-cpt.php');
 
 // Flush Rewrite
 
-register_activation_hook( __FILE__, 'any_slick_flush_rewrites' );
+register_activation_hook( __FILE__, 'any_slks_flush_rewrites' );
 
-function any_slick_flush_rewrites() {
+function any_slks_flush_rewrites() {
 	any_slick_custom_posts();
 	flush_rewrite_rules();
 }
@@ -49,7 +66,7 @@ load_plugin_textdomain( 'slick-slider', false, basename( dirname( __FILE__ ) ) .
 --------------------------------------------- */
 
 
-function any_add_slick_js() {
+function any_slks_add_js() {
     if (!is_admin()) {
 	
 	    wp_enqueue_script( 
@@ -61,27 +78,42 @@ function any_add_slick_js() {
 	    );
 	}
 }    
-add_action('wp_enqueue_scripts', 'any_add_slick_js');
+add_action('wp_enqueue_scripts', 'any_slks_add_js');
 
 
-function any_print_slick_script() {
+function any_slks_print_script() {
+
+// Default values as vars
+
+$dots = get_option('any_slks_dots', 1);
+if ($dots) { $dotsok = 'true'; } else { $dotsok = 'false'; }
+$arrows = get_option('any_slks_arrows', 1);
+if ($arrows) { $arrowsok = 'true'; } else { $arrowsok = 'false'; }
+$auto = get_option('any_slks_auto', 1);
+if ($auto) { $autook = 'true'; } else { $autook = 'false'; }
+$speed = get_option('any_slks_speed', 4000);
+if ($speed) { $speedok = $speed; } else { $speedok = 4000; }
+$style = get_option('any_slks_style', 'false');
+$height = get_option('any_slks_height', 1);
+if ($height) { $heightok = 'true'; } else { $heightok = 'false'; }
+
 
 print '
 <script>
 jQuery(document).ready(function() {
 	jQuery(".slicky-slides").slick({
-		autoplay: false,
-		autoplaySpeed: 4000,
-		arrows: true,
-		dots: true,
-		fade: false,
-		adaptiveHeight: true
+		autoplay: '.$autook.',
+		autoplaySpeed: '.$speedok.',
+		arrows: '.$arrowsok.',
+		dots: '.$dotsok.',
+		fade: '.$style.',
+		adaptiveHeight: '.$heightok.'
 	});
 });
 </script>
 ';
 }
-add_action('wp_footer', 'any_print_slick_script', 100);
+add_action('wp_footer', 'any_slks_print_script', 100);
 
 
 /* ------------------------------------------
@@ -89,7 +121,7 @@ add_action('wp_footer', 'any_print_slick_script', 100);
 --------------------------------------------- */
 
 
-function any_add_slick_css() {
+function any_slks_add_css() {
 	
 	wp_register_style(
 		'slick', 
@@ -100,18 +132,30 @@ function any_add_slick_css() {
 	);
 	wp_enqueue_style( 'slick' );
 }    
-add_action('wp_enqueue_scripts', 'any_add_slick_css');
+add_action('wp_enqueue_scripts', 'any_slks_add_css');
 
 
-function any_print_slick_css() {
+
+function any_slks_print_css() {
+
+$dotscolor = get_option('any_slks_dotscolor');
+if ($dotscolor) { $dotscolorok = $dotscolor; } else { $dotscolorok = '#000000'; }
+$arrowscolor = get_option('any_slks_arrowscolor');
+if ($arrowscolor) { $arrowscolorok = $arrowscolor; } else { $arrowscolorok = '#000000'; }
+ 
  
 print '<style>
-.slicky-slides .slick-prev:before, .slicky-slides .slick-next:before {color: #666666;}
+.slicky-slides .slick-prev:before, .slicky-slides .slick-next:before {
+	color: '.$arrowscolorok.';
+}
 .slicky-slides .slick-dots li button:before,
-.slicky-slides .slick-dots li.slick-active button:before {color: color: #666666;}
+.slicky-slides .slick-dots li.slick-active button:before {
+	color: '.$dotscolorok.';
+}
  </style>';
 }
-add_action('wp_head', 'any_print_slick_css', 100);
+
+add_action('wp_head', 'any_slks_print_css', 100);
 
 
 
@@ -119,10 +163,18 @@ add_action('wp_head', 'any_print_slick_css', 100);
 // Admin Options ----------------------------
 --------------------------------------------- */
 
-/* Nothing yet
-	 
-//include( dirname( __FILE__ ) . '/admin/settings.php' );
 
+include( dirname( __FILE__ ) . '/admin/settings.php' );
+
+add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'any_slks_plugin_settings_link' );
+
+function any_slks_plugin_settings_link($links) {
+	 $mylinks = array(
+	 	'<a href="' . admin_url( 'options-general.php?page=slick_slider' ) . '">'.__('Settings').'</a>', 
+	 	'<a href="' . admin_url( 'edit.php?post_type=slick-image' ) . '">'.__('Create the slides','slick-slider').'</a>'
+	 );
+	return array_merge( $links, $mylinks );
+}
 
 
 /* ------------------------------------------
@@ -130,7 +182,7 @@ add_action('wp_head', 'any_print_slick_css', 100);
 --------------------------------------------- */
 
 
-function any_get_slick_slider() { ?>
+function any_slks_get_slider() { ?>
 
  
     <?php $slick_query = array(
@@ -147,9 +199,14 @@ function any_get_slick_slider() { ?>
 	        <div class="slicky-item">
 		        <figure class="slicky-figure">
 				<?php the_post_thumbnail('large'); ?>
+					
+					<?php $caption = get_the_content(); ?>
+					<?php if ($caption) { ?>
 					<figcaption class="slicky-caption">
 						<?php the_content(); ?>
 					</figcaption>
+					<?php } ?>
+					
 				</figure>
 	        </div>     
 	    
@@ -166,20 +223,20 @@ function any_get_slick_slider() { ?>
  
 /* Shortcode */
  
-function any_slick_insert_slider() {
+function any_slks_insert_slider() {
  
 	ob_start();
-		any_get_slick_slider();
+		any_slks_get_slider();
 	return ob_get_clean();	
 	
 }
-add_shortcode('slick_slider', 'any_slick_insert_slider');
+add_shortcode('slick_slider', 'any_slks_insert_slider');
  
  
  
 /* Template tag */
  
-function any_slick_slider() {
+function any_slks_slider() {
  
-    print any_get_slick_slider();
+    print any_slks_get_slider();
 }
