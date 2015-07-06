@@ -131,6 +131,16 @@ function any_slks_add_css() {
 		false
 	);
 	wp_enqueue_style( 'slick' );
+
+	wp_register_style(
+		'css-slks', 
+	    plugins_url( '/css/slick-slider.css' , __FILE__ ),
+		array(), 
+		'1.0', 
+		false
+	);
+	wp_enqueue_style( 'css-slks' );	
+
 }    
 add_action('wp_enqueue_scripts', 'any_slks_add_css');
 

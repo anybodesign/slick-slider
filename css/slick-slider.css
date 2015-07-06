@@ -55,3 +55,28 @@
 .slick-dots li.slick-active button:before { color: black; opacity: 0.75; }
 
 /*# sourceMappingURL=slick.css.map */
+
+
+
+/* Slick Slider Plugin CSS */
+
+.slick-slider, .slick-list {
+	z-index: 1; /* antialias fix */
+}
+
+ul.slick-dots {
+	margin: 0 0 20px 0 !important;
+}
+
+.slicky-slides .slicky-figure {
+	position: relative;
+}
+
+.slicky-slides .slicky-caption {
+	position: absolute;
+	bottom: 10px; left: 10px;
+	max-width: 50%; padding: 10px;
+	background: rgba(255,255,255,0.85);
+}
+
+.slicky-caption * {margin-bottom: 0;}
